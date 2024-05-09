@@ -1,64 +1,47 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const amigoForm = document.getElementById('Form');
-    const amigoList = document.getElementById('amigoList');
-    const drawButton = document.getElementById('drawButton');
+function startRaffle() {
+    const amigoSecretoInput = document.getElementById('amigo_secreto');
+    const amigosSecreto = amigoSecretoInput.value.split(',').map(amigo => amigo.trim());
     const resultDiv = document.getElementById('result');
-
-    const participants = [];
-
-    amigoForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const amigoName = document.getElementById('nome-amigo').value.trim();
-        if (amigoName !== '') {
-            amigo.push(amigoName);
-            displayamigo();
-            amigoForm.reset();
-        }
-    });
-
-    drawButton.addEventListener('clicar', function() {
-        if (amigo.length < 2) {
-            resultDiv.textContent = '';
-            return;
-        }
-
-        const shuffledamigo = shuffleArray(amigo.slice());
-        const pairs = [];
-
-        for (let i = 0; i < shuffledamigo.length; i++) {
-            const giver = shuffledamigo[i];
-            const receiver = i === shuffledamigo.length - 1 ? shuffledamigo[0] : shuffledamigo[i + 1];
-            pairs.push({ giver, receiver });
-        }
-
-        displayResult(pairs);
-    });
-
-    function displayamigo() {
-        amigoList.innerHTML = '';
-        participants.forEach(function(amigo) {
-            const li = document.createElement('li');
-            li.textContent = amigo;
-            amigo.appendChild(li);
-        });
+  
+    // Validar se o número de participantes é par
+    if (amigosSecreto.length % 2 !== 0) {
+      alert('O número de participantes deve ser par.');
+      return;
     }
-
-    function displayResult(pairs) {
-        resultDiv.textContent = 'Resultado do Sorteio:';
-        const ul = document.createElement('ul');
-        pairs.forEach(function(pair) {
-            const li = document.createElement('li');
-            li.textContent = `${pair.giver} => ${pair.receiver}`;
-            ul.appendChild(li);
-        });
-        resultDiv.appendChild(ul);
+  
+    // Embaralhar a lista de amigos secreto para criar uma ordem aleatória
+    const shuffledAmigosSecreto = shuffleArray(amigosSecreto.slice());
+  
+    let amigosSecretos = {};
+  
+    for (let i = 0; i < shuffledAmigosSecreto.length; i++) {
+      const currentAmigoSecreto = shuffledAmigosSecreto[i];
+      let amigoSecreto = null;
+  
+      // Remover o amigo atual da lista de participantes
+      const amigosRestantes = shuffledAmigosSecreto.filter(amigo => amigo !== currentAmigoSecreto);
+  
+      // Embaralhar a lista de participantes restantes para evitar que o amigo secreto seja previsível
+      const amigosRestantesEmbaralhados = shuffleArray(amigosRestantes);
+  
+      amigoSecreto = amigosRestantesEmbaralhados[0]; // Pegar o primeiro amigo da lista embaralhada
+  
+      amigosSecretos[currentAmigoSecreto] = amigoSecreto;
     }
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
+  
+    // Exibir o resultado
+    resultDiv.innerHTML = '<h2>Resultado:</h2>';
+    for (const amigoSecreto in amigosSecretos) {
+      const amigo = amigosSecretos[amigoSecreto];
+      resultDiv.innerHTML += `<p>${amigoSecreto} tirou ${amigo} como amigo secreto.</p>`;
     }
-});
+  }
+  
+  // Função para embaralhar um array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
