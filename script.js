@@ -1,41 +1,47 @@
-function addName() {
-    const input = document.getElementById('nameInput');
-    const name = input.value.trim();
+function startRaffle() {
+    const amigoSecretoInput = document.getElementById('amigo_secreto');
+    const amigosSecreto = amigoSecretoInput.value.split(',').map(amigo => amigo.trim());
+    const resultDiv = document.getElementById('result');
   
-    if (name) {
-      let names = JSON.parse(localStorage.getItem('secretSantaNames')) || [];
+    // Validar se o número de participantes é par
+    if (amigosSecreto.length % 2 !== 0) {
+      alert('O número de participantes deve ser par.');
+      return;
+    }
   
-      if (!names.includes(name)) {
-        names.push(name);
-        localStorage.setItem('secretSantaNames', JSON.stringify(names));
-        input.value = '';  // Limpa o campo de texto
-        updateNamesList();  // Atualiza a lista na página
-      } else {
-        alert('Nome já existe!');
-      }
+    // Embaralhar a lista de amigos secreto para criar uma ordem aleatória
+    const shuffledAmigosSecreto = shuffleArray(amigosSecreto.slice());
+  
+    let amigosSecretos = {};
+  
+    for (let i = 0; i < shuffledAmigosSecreto.length; i++) {
+      const currentAmigoSecreto = shuffledAmigosSecreto[i];
+      let amigoSecreto = null;
+  
+      // Remover o amigo atual da lista de participantes
+      const amigosRestantes = shuffledAmigosSecreto.filter(amigo => amigo !== currentAmigoSecreto);
+  
+      // Embaralhar a lista de participantes restantes para evitar que o amigo secreto seja previsível
+      const amigosRestantesEmbaralhados = shuffleArray(amigosRestantes);
+  
+      amigoSecreto = amigosRestantesEmbaralhados[0]; // Pegar o primeiro amigo da lista embaralhada
+  
+      amigosSecretos[currentAmigoSecreto] = amigoSecreto;
+    }
+  
+    // Exibir o resultado
+    resultDiv.innerHTML = '<h2>Resultado:</h2>';
+    for (const amigoSecreto in amigosSecretos) {
+      const amigo = amigosSecretos[amigoSecreto];
+      resultDiv.innerHTML += `<p>${amigoSecreto} tirou ${amigo} como amigo secreto.</p>`;
     }
   }
   
-  function updateNamesList() {
-    const names = JSON.parse(localStorage.getItem('secretSantaNames')) || [];
-    const list = document.getElementById('namesList');
-  
-    list.innerHTML = '';  // Limpa a lista atual
-    names.forEach(name => {
-      const listItem = document.createElement('li');
-      listItem.textContent = name;
-      list.appendChild(listItem);
-    });
-  }
-  
-  function goToSortPage() {
-    if (JSON.parse(localStorage.getItem('secretSantaNames')).length > 1) {
-      window.location.href = 'sortPage.html';  // Direciona para a página de sorteio
-    } else {
-      alert('Adicione pelo menos dois nomes para continuar.');
+  // Função para embaralhar um array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
   }
-  
-  // Atualiza a lista de nomes quando a página carrega
-  window.onload = updateNamesList;
-  
