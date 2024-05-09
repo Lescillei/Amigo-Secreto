@@ -1,28 +1,76 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteio de Amigo Secreto</title>
-    <link rel="stylesheet" href="teste.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amigo Secreto</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Sorteio de Amigo Secreto</h1>
-        <form id="amigo-form">
-            <label for="amigo">Insira o nome do amigo:</label>
-            <input type="text" id="amigo-secreto" name="amigo-secreto" required>
-            <button type="button" onclick="addAmigoSecreto()">Adicionar Amigo</button>
-        </form>
-        <ul id="amigo-list">
-            <!-- Lista de amigos secretos será adicionada aqui -->
-        </ul>
-        <button onclick="Sorteio()">Sortear Amigo Secreto</button>
-        <div id="result">
-            <!-- O resultado do sorteio será exibido aqui -->
-        </div>
+  <div class="container mt-5">
+    <h1 class="text-center">Amigo Secreto</h1>
+    <div class="form-group">
+      <label for="participants">Digite os nomes dos participantes (separados por vírgula):</label>
+      <input type="text" class="form-control" id="participants">
     </div>
+    <button class="btn btn-primary" onclick="startRaffle()">Sortear Amigo Secreto</button>
+    <div class="mt-4" id="result"></div>
+  </div>
 
-    <script src="teste.js"></script>
+  <!-- Bootstrap JS and jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function startRaffle() {
+      const participantsInput = document.getElementById('participants');
+      const participants = participantsInput.value.split(',').map(participant => participant.trim());
+      const resultDiv = document.getElementById('result');
+
+      // Validate if the number of participants is even
+      if (participants.length % 2 !== 0) {
+        alert('O número de participantes deve ser par.');
+        return;
+      }
+
+      // Shuffle participants to create a random order
+      const shuffledParticipants = shuffleArray(participants.slice());
+
+      let secretFriends = {};
+
+      for (let i = 0; i < shuffledParticipants.length; i++) {
+        const currentParticipant = shuffledParticipants[i];
+        let friend = null;
+
+        if (i === shuffledParticipants.length - 1) {
+          // If it's the last participant, assign the first participant as friend
+          friend = shuffledParticipants[0];
+        } else {
+          // Otherwise, assign the next participant as friend
+          friend = shuffledParticipants[i + 1];
+        }
+
+        secretFriends[currentParticipant] = friend;
+      }
+
+      // Display the result
+      resultDiv.innerHTML = '<h2>Resultado:</h2>';
+      for (const participant in secretFriends) {
+        const friend = secretFriends[participant];
+        resultDiv.innerHTML += `<p>${participant} tirou ${friend} como amigo secreto.</p>`;
+      }
+    }
+
+    // Function to shuffle an array
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  </script>
 </body>
 </html>
