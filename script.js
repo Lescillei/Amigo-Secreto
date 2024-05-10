@@ -36,6 +36,12 @@ function startRaffle() {
     amigosSecreto.splice(amigosSecreto.indexOf(amigoSecreto), 1);
   }
 
+  //Ir para a segunda página
+  function goToSorteio() {
+    window.location.href = 'Sorteio/sorteio.html';
+}
+
+
   // Exibir o resultado
   resultDiv.innerHTML = '<h2>Resultado:</h2>';
   for (const amigoSecreto in amigosSecretos) {
