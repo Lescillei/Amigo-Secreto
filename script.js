@@ -24,15 +24,16 @@ function startRaffle() {
     const currentAmigoSecreto = shuffledAmigosSecreto[i];
     let amigoSecreto = null;
 
-    // Remover o amigo atual da lista de participantes
-    const amigosRestantes = shuffledAmigosSecreto.filter(amigo => amigo !== currentAmigoSecreto);
-
-    // Embaralhar a lista de participantes restantes para evitar que o amigo secreto seja previsível
-    const amigosRestantesEmbaralhados = shuffleArray(amigosRestantes);
-
-    amigoSecreto = amigosRestantesEmbaralhados[0]; // Pegar o primeiro amigo da lista embaralhada
+    // Tentar encontrar um amigo secreto diferente do participante atual
+    do {
+      const index = Math.floor(Math.random() * amigosSecreto.length);
+      amigoSecreto = amigosSecreto[index];
+    } while (amigoSecreto === currentAmigoSecreto);
 
     amigosSecretos[currentAmigoSecreto] = amigoSecreto;
+
+    // Remover o amigo secreto escolhido da lista de amigos disponíveis
+    amigosSecreto.splice(amigosSecreto.indexOf(amigoSecreto), 1);
   }
 
   // Exibir o resultado
