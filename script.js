@@ -9,6 +9,12 @@ function startRaffle() {
     return;
   }
 
+  // Validar se não há nomes repetidos
+  if (hasDuplicates(amigosSecreto)) {
+    alert('Os nomes dos participantes não podem ser repetidos.');
+    return;
+  }
+
   // Embaralhar a lista de amigos secreto para criar uma ordem aleatória
   const shuffledAmigosSecreto = shuffleArray(amigosSecreto.slice());
 
@@ -44,4 +50,9 @@ function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+// Função para verificar se há elementos duplicados em um array
+function hasDuplicates(array) {
+  return (new Set(array)).size !== array.length;
 }
