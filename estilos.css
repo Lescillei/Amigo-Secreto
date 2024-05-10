@@ -29,7 +29,7 @@ body {
     width: 98%;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #8a8787;
+    border: 1px solid #a19f9f;
   }
   
   button.btn-primary {
@@ -43,7 +43,7 @@ body {
   }
   
   button.btn-primary:hover {
-    background-color: #2986eb;
+    background-color: #0056b3;
   }
   
   #result {
