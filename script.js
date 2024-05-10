@@ -3,9 +3,9 @@ function startRaffle() {
   const amigosSecreto = amigoSecretoInput.value.split(',').map(amigo => amigo.trim());
   const resultDiv = document.getElementById('result');
 
-  // Validar se o número de participantes é par
-  if (amigosSecreto.length % 2 !== 0) {
-    alert('O número de participantes deve ser par.');
+  // Verificar se há pelo menos dois participantes
+  if (amigosSecreto.length < 2) {
+    alert('Ops, parece que faltam amigos suficientes para o sorteio.');
     return;
   }
 
