@@ -5,6 +5,7 @@ body {
     height: 100vh;
     flex-direction: column;
     font-family: 'Architects Daughter', cursive;
+    background-color: #f8f9fa;
   }
   
   h2 {
@@ -79,9 +80,10 @@ body {
     cursor: pointer;
   }
 
-  #botao {
+  .botao {
     display: block;
     margin-top: 15px;
+    font-family: 'Architects Daughter', cursive;
   }
 
   #selecionar {
