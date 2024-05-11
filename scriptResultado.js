@@ -48,5 +48,5 @@ if(localStorage.getItem("aceitouCookie") == "1") {
     divMensagemUsuario.classList.add("oculto");
 }
 
-// Carrega os nomes ao iniciar a página
+// Carrega os nomes adicionados ao iniciar a página
 window.onload = carregarNomes;
