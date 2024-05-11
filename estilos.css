@@ -1,51 +1,107 @@
+* {
+  --cor-de-fundo: #C0D9E7;
+  --cor-de-fonte: #F0F0F0;
+  --cor-de-container: bisque; 
+  --cor-de-botao: #007bff;
+  --cor-de-fonte-de-botao: #fff;
+  --cor-hover-botao: #07488d;
+}
+
 body {
-    background-color: #f8f9fa;
-    font-family: 'Architects Daughter', cursive;
-  }
-  
-  .container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    color: #007bff;
-    text-align: center;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  input[type="text"] {
-    width: 98%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #a19f9f;
-  }
-  
-  button.btn-primary {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  button.btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  #result {
-    margin-top: 20px;
-  }
+  background-color: var(--cor-de-fundo);
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#container {
+  background-color: var(--cor-de-container);
+  margin-top: 50px;
+  box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+#container-resultado {
+  background-color: var(--cor-de-container);
+  margin-top: 50px;
+  box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-weight: bold;
+  width: 60%;
+}
+
+button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  background-color:var(--cor-de-botao);
+  color: var(--cor-de-fonte-de-botao);
+  margin-left: 15px;
+}
+
+button:hover {
+  background-color: var(--cor-hover-botao);
+  cursor: pointer;
+}
+
+
+p {
+  font-weight: bold;
+}
+
+ol {
+  padding: 0;
+  margin: 10px 0;
+}
+
+li {
+  padding: 5px 0;
+  text-align: center;
+}
+
+select {
+  text-align: center;
+  width: 60%;
+  height: 30px;
+  border-radius: 5px;
+}
+
+#mensagem-usuario {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: var(--cor-de-container);
+}
+
+#botao-aceita-mensagem {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.oculto {
+  display: none;
+}
+
+#botao-limpar-pagina {
+  margin-left: 85%;
+}
