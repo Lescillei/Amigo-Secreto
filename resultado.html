@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>Resultado do Amigo Secreto</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <h1>Qual o seu nome?</h1>
+        <select id="selecionarNome" onchange="mostrarResultado()">
+            <option value="">Selecione o seu nome</option>
+        </select>
+    </div>
+    <div id="container-resultado">
+        <h2>Resultado: </h2>
+        <p id="resultado"></p>
+        <button id="botao-limpar-pagina" onclick="ocultarResultado()">Próximo</button>
+
+    </div>
+
+
+    <div id="mensagem-usuario">
+        <p>Seja reponsável e só veja quem você tirou, contamos com a sua colaboração!</p>
+        <button id="botao-aceita-mensagem">Ok, estou de acordo!</button>
+    </div>
+
+    <script src="scriptResultado.js"></script>
+</body>
+</html>
